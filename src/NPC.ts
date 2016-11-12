@@ -1,16 +1,17 @@
 var emojiimage = [
-    {image:"walk01_png"},
-    {image:"walk02_png"},
-    {image:"walk03_png"}
+    { image: "walk01_png" },
+    { image: "walk02_png" },
+    { image: "walk03_png" },
+    { image: "walk04_png" }
 ];
-var emoji:egret.Bitmap;
-class NPC {
-    npcId: String;   
-    onChange(task) {
-        emoji.texture= RES.getRes(emojiimage[0].image);
+var emoji: egret.Bitmap;
+class NPC implements Observer{
+    npcId: String;
+    onChange(task:Task) {
+
     }
-    onNPCClick( evt:egret.TouchEvent){
-        
+    onNPCClick(task:Task,evt: egret.TouchEvent) {
+
     }
 
 }
