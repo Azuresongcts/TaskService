@@ -1,20 +1,21 @@
 class TaskService {
 	npc1 = new NPC1();
 	npc2 = new NPC2();
+	observerList: ObserverType[];
+	taskList: Task[];
 	public constructor() {
-		this.npc1.npcId = "npc_0";
-		this.npc2.npcId = "npc_0";
+		this.observerList = new Array();
+		this.taskList = new Array();
+		this.addTask("001");
 
 	}
-	observerList: Observer[];
-	private taskList: Task[] = [];
 	task: Task;
-	public Attach(observer: Observer): void {
-		this.observerList.push(observer);
+	public Attach(observer: Observer, type: string): void {
+		this.observerList.push(new ObserverType(observer, type));
 	}
 	public Notify(task: Task): void {
 		this.observerList.forEach(element => {
-			element.onChange(task);
+			element.observer.onChange(task);
 		});
 	}
 	public getTask(task: Task) {
@@ -25,12 +26,10 @@ class TaskService {
 		task = taskSearch(this.taskList, id);
 		switch (id) {
 			case "001":
-				this.npc1.onChange(task);
-				this.npc2.onChange(task);
 				task.status = 4;
 				this.Notify(task);
 			default:
-				return 1;
+				return ErrorCode.TASK_ERROR_UNFIND;
 		}
 	}
 	public accept(id: string): void {
@@ -38,37 +37,29 @@ class TaskService {
 		task = taskSearch(this.taskList, id);
 		switch (id) {
 			case "001":
-				this.npc1.onChange(task);
-				this.npc2.onChange(task);
 				this.Notify(task);
 				break;
 			default:
 				console.log("Task cannot be found");
 		}
 	}
-	public returnTaskByCustomRule(rule: Function): Task {
-		//   var clone = Object({}, this.taskList);
-        return rule(this.taskList);
-    }
-
     public addTask(id: string) {
 		var task: Task;
 		task = taskSearch(this.taskList, id);
         switch (id) {
             case "001":
-				this.npc1.onChange(task);
-				this.npc2.onChange(task);
                 var task = new Task("001", "Task 1", "First Task", 0, "npc_0", "npc_1");
 				task.status = 1;
                 this.taskList.push(task);
 				this.Notify(task);
                 break;
         }
-	}
-	public removeTask(id: string) {
-		if (taskSearch(this.taskList, id).status = 4) {
 
-		}
+	}
+
+	getTaskByCustomRole(rule: Function, Id: string): Task {
+		return rule(this.taskList, Id);
+
 	}
 
 }
@@ -88,5 +79,16 @@ enum ErrorCode {
 
     TASK_ERROR_NULL,
     TASK_ERROR_UNFIND
+
+}
+class ObserverType {
+
+	observer: Observer;
+	type: string;
+
+	constructor(observer: Observer, type: string) {
+		this.observer = observer;
+		this.type = type;
+	}
 
 }
