@@ -20,5 +20,5 @@ enum TaskStatus {
     ACCEPTABLE,
     DURING,
     CAN_SUBMIT,
-    SUBMITTED
+    SUBMITTED,
 }

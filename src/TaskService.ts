@@ -1,6 +1,4 @@
 class TaskService {
-	npc1 = new NPC1();
-	npc2 = new NPC2();
 	observerList: ObserverType[];
 	taskList: Task[];
 	public constructor() {
@@ -18,9 +16,7 @@ class TaskService {
 			element.observer.onChange(task);
 		});
 	}
-	public getTask(task: Task) {
-		return task;
-	}
+
 	public finish(id: string): ErrorCode {
 		var task: Task;
 		task = taskSearch(this.taskList, id);
@@ -37,10 +33,20 @@ class TaskService {
 		task = taskSearch(this.taskList, id);
 		switch (id) {
 			case "001":
+				task.status=TaskStatus.DURING;
 				this.Notify(task);
 				break;
 			default:
 				console.log("Task cannot be found");
+		}
+	}
+	public during(id: string) {
+		var task: Task;
+		task = taskSearch(this.taskList, id);
+		switch (id) {
+			case "001":
+				this.Notify(task);
+			default:
 		}
 	}
     public addTask(id: string) {
@@ -48,7 +54,7 @@ class TaskService {
 		task = taskSearch(this.taskList, id);
         switch (id) {
             case "001":
-                var task = new Task("001", "Task 1", "First Task", 0, "npc_0", "npc_1");
+                var task = new Task("001", "Task 1", "找到NPC2", 0, "npc_0", "npc_1");
 				task.status = 1;
                 this.taskList.push(task);
 				this.Notify(task);
