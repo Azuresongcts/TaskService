@@ -33,7 +33,7 @@ class TaskService {
 		task = taskSearch(this.taskList, id);
 		switch (id) {
 			case "001":
-				task.status=TaskStatus.DURING;
+				task.status = TaskStatus.DURING;
 				this.Notify(task);
 				break;
 			default:
@@ -67,6 +67,53 @@ class TaskService {
 		return rule(this.taskList, Id);
 
 	}
+	checkTaskRules(task: Task, npcId: string) {
+        switch (task.status) {
+            case TaskStatus.ACCEPTABLE:
+                switch (task.id) {
+                    case "001":
+                        if (task.fromNpcId == npcId) {
+							this.Notify(task);
+                        }
+                        break;
+                }
+                break;
+            case TaskStatus.CAN_SUBMIT:
+                switch (task.id) {
+                    case "001":
+                        if (task.toNpcId == npcId) {
+                            this.Notify(task);
+
+                        }
+                        break;
+                }
+                break;
+            case TaskStatus.DURING:
+                switch (task.id) {
+                    case "001":
+                        if (task.toNpcId == npcId) {
+                            task.status = TaskStatus.CAN_SUBMIT
+                            this.Notify(task);
+                        }
+                        break;
+                }
+                break;
+            case TaskStatus.SUBMITTED:
+                switch (task.id) {
+                    case "001":
+                        this.Notify(task);
+                        break;
+                }
+                break;
+            case TaskStatus.UNACCEPTABLE:
+                switch (task.id) {
+                    case "001":
+						this.Notify(task);
+                        break;
+                }
+                break;
+        }
+    }
 
 }
 function taskSearch(taskList: Task[], id: string): Task {

@@ -22,8 +22,7 @@ class TaskAvilableState implements State {
 
     private npc: NPC;
 
-    taskSign: egret.Shape;
-    taskSignColor = 0xFF0000;
+    taskSign: egret.Bitmap;
     taskSighX = 15;
     taskSighY = 20;
     taskSighWidth = 30;
@@ -31,7 +30,7 @@ class TaskAvilableState implements State {
 
     constructor(npc: NPC) {
         this.npc = npc;
-        this.taskSign = new egret.Shape();
+        this.taskSign = new egret.Bitmap();
 
     }
 
@@ -49,15 +48,11 @@ class TaskAvilableState implements State {
     }
 
     drawTaskSign() {
-
         this.taskSign.x = this.taskSighX;
         this.taskSign.y = this.taskSighY;
         this.taskSign.width = this.taskSighWidth;
         this.taskSign.height = this.taskSighHeight;
-
-        this.taskSign.graphics.beginFill(this.taskSignColor, 1);
-        this.taskSign.graphics.drawRect(0, 0, this.taskSighWidth, this.taskSighHeight);
-        this.taskSign.graphics.endFill();
+        this.taskSign.texture=RES.getRes(emojiimage.ACCEPTABLEimage);
 
     }
 
@@ -65,21 +60,39 @@ class TaskAvilableState implements State {
 
 class TaskDuringState implements State {
 
-    private npc: NPC;
+      private npc: NPC;
+
+    taskSign: egret.Bitmap;
+    taskSighX = 15;
+    taskSighY = 20;
+    taskSighWidth = 30;
+    taskSighHeight = 30;
 
     constructor(npc: NPC) {
         this.npc = npc;
-        
+        this.taskSign = new egret.Bitmap();
 
     }
 
     onEnter() {
-        console.log("Enter Task During State");
+        this.drawTaskSign();
+        this.npc.npcStage.addChild(this.taskSign);
+        console.log("Enter Task Avilable State");
 
     }
 
     onExit() {
-        console.log("Exit Task During State");
+        this.npc.npcStage.removeChild(this.taskSign);
+        console.log("Exit Task Avilable State");
+
+    }
+
+    drawTaskSign() {
+        this.taskSign.x = this.taskSighX;
+        this.taskSign.y = this.taskSighY;
+        this.taskSign.width = this.taskSighWidth;
+        this.taskSign.height = this.taskSighHeight;
+        this.taskSign.texture=RES.getRes(emojiimage.DURINGimage);
 
     }
 }
@@ -88,8 +101,7 @@ class TaskSubmitState implements State {
 
     private npc: NPC;
 
-    taskSigh: egret.Shape;
-    taskSignColor = 0xFFFF00;
+    taskSign: egret.Bitmap;
     taskSighX = 15;
     taskSighY = 20;
     taskSighWidth = 30;
@@ -97,32 +109,29 @@ class TaskSubmitState implements State {
 
     constructor(npc: NPC) {
         this.npc = npc;
-        this.taskSigh = new egret.Shape();
+         this.taskSign = new egret.Bitmap();
 
     }
 
     onEnter() {
         this.drawTaskSign();
-        this.npc.npcStage.addChild(this.taskSigh);
+        this.npc.npcStage.addChild(this.taskSign);
         console.log("Enter Task Submit State");
 
     }
 
     onExit() {
-        this.npc.npcStage.removeChild(this.taskSigh);
+        this.npc.npcStage.removeChild(this.taskSign);
         console.log("Exit Task Submit State");
 
     }
 
     drawTaskSign() {
-        this.taskSigh.x = this.taskSighX;
-        this.taskSigh.y = this.taskSighY;
-        this.taskSigh.width = this.taskSighWidth;
-        this.taskSigh.height = this.taskSighHeight;
-
-        this.taskSigh.graphics.beginFill(this.taskSignColor, 1);
-        this.taskSigh.graphics.drawRect(0, 0, this.taskSighWidth, this.taskSighHeight);
-        this.taskSigh.graphics.endFill();
+        this.taskSign.x = this.taskSighX;
+        this.taskSign.y = this.taskSighY;
+        this.taskSign.width = this.taskSighWidth;
+        this.taskSign.height = this.taskSighHeight;
+        this.taskSign.texture=RES.getRes(emojiimage.CANSUBMITTEDimage);
 
     }
 

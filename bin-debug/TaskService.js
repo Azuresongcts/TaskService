@@ -60,6 +60,52 @@ var TaskService = (function () {
     p.getTaskByCustomRole = function (rule, Id) {
         return rule(this.taskList, Id);
     };
+    p.checkTaskRules = function (task, npcId) {
+        switch (task.status) {
+            case TaskStatus.ACCEPTABLE:
+                switch (task.id) {
+                    case "001":
+                        if (task.fromNpcId == npcId) {
+                            this.Notify(task);
+                        }
+                        break;
+                }
+                break;
+            case TaskStatus.CAN_SUBMIT:
+                switch (task.id) {
+                    case "001":
+                        if (task.toNpcId == npcId) {
+                            this.Notify(task);
+                        }
+                        break;
+                }
+                break;
+            case TaskStatus.DURING:
+                switch (task.id) {
+                    case "001":
+                        if (task.toNpcId == npcId) {
+                            task.status = TaskStatus.CAN_SUBMIT;
+                            this.Notify(task);
+                        }
+                        break;
+                }
+                break;
+            case TaskStatus.SUBMITTED:
+                switch (task.id) {
+                    case "001":
+                        this.Notify(task);
+                        break;
+                }
+                break;
+            case TaskStatus.UNACCEPTABLE:
+                switch (task.id) {
+                    case "001":
+                        this.Notify(task);
+                        break;
+                }
+                break;
+        }
+    };
     return TaskService;
 }());
 egret.registerClass(TaskService,'TaskService');

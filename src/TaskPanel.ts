@@ -1,9 +1,3 @@
-/*
-使用方法：
-	1.drawPanel();
-	2.获得panel
-*/
-
 class TaskPanel implements Observer {
 
 	panel: egret.DisplayObjectContainer;
@@ -24,13 +18,13 @@ class TaskPanel implements Observer {
 
 	private taskNameTextField: egret.TextField;
 	private taskNameTextFieldText = "任务面板";
-	private taskNameTextFieldX = 70;
+	private taskNameTextFieldX = 40;
 	private taskNameTextFieldY = 50;
 	private taskNameTextFieldWidth = 200;
-	private taskNameTextFieldColor = 0xFF0000;
+	private taskNameTextFieldColor = 0x000000;
 
 	private taskDescTextField: egret.TextField;
-	private taskDescTextFieldText = "无";
+	private taskDescTextFieldText = "";
 	private taskDescTextFieldX = 10;
 	private taskDescTextFieldY = 100;
 	private taskDescTextFieldWidth = 180;
@@ -46,7 +40,7 @@ class TaskPanel implements Observer {
 
 	private buttonTextField: egret.TextField;
 	private buttonTextFieldText = "无任务";
-	private buttonTextFieldX = this.buttonX + 15;
+	private buttonTextFieldX = this.buttonX + 5;
 	private buttonTextFieldY = this.buttonY + 10;
 	private buttonTextFieldWidth = 120;
 	private buttonTextFieldColor = 0xFFFAFA;
@@ -81,6 +75,7 @@ class TaskPanel implements Observer {
 		this.taskDescTextField.width = this.taskDescTextFieldWidth;
 		this.taskDescTextField.bold = false;
 		this.taskDescTextField.textColor = this.taskDescTextFieldColor;
+		this.taskDescTextField.textAlign = egret.HorizontalAlign.LEFT;
 
 
 	}
@@ -192,8 +187,8 @@ class TaskPanel implements Observer {
 				break;
 
 			case TaskStatus.SUBMITTED:
-				this.taskNameTextFieldText = "任务完成";
-				this.taskDescTextFieldText = "无";
+				this.taskNameTextField.text= "任务面板";
+				this.taskDescTextField.text= "无";
 				this.buttonTextField.text = "无任务";
 				break;
 
@@ -204,6 +199,7 @@ class TaskPanel implements Observer {
 		}
 
 	}
+
 
 
 

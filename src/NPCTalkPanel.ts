@@ -1,9 +1,3 @@
-/*
-使用方法：
-	1.drawPanel();
-	2.获得panel
-*/
-
 class NPCTalkPanel implements Observer {
 
 	panel: egret.DisplayObjectContainer;
@@ -16,21 +10,21 @@ class NPCTalkPanel implements Observer {
 
 	private backColor = 0xFFFAFA;
 	private backGround: egret.Shape;
-	private panelX = 300;
+	private panelX = 100;
 	private panelY = 100;
 	private panelWidth = 200;
 	private panelHeight = 300;
 
 
 	private taskNameTextField: egret.TextField;
-	private taskNameTextFieldText = "任务面板";
+	private taskNameTextFieldText = "";
 	private taskNameTextFieldX = 70;
 	private taskNameTextFieldY = 50;
 	private taskNameTextFieldWidth = 200;
 	private taskNameTextFieldColor = 0xFF0000;
 
 	private taskDescTextField: egret.TextField;
-	private taskDescTextFieldText = "无";
+	private taskDescTextFieldText = "";
 	private taskDescTextFieldX = 10;
 	private taskDescTextFieldY = 100;
 	private taskDescTextFieldWidth = 180;
@@ -45,7 +39,7 @@ class NPCTalkPanel implements Observer {
 	private buttonHeight = 70;
 
 	private buttonTextField: egret.TextField;
-	private buttonTextFieldText = "无任务";
+	private buttonTextFieldText = "";
 	private buttonTextFieldX = this.buttonX + 15;
 	private buttonTextFieldY = this.buttonY + 10;
 	private buttonTextFieldWidth = 120;
@@ -55,7 +49,7 @@ class NPCTalkPanel implements Observer {
 	public constructor(stage: egret.DisplayObjectContainer, taskService: TaskService) {
 		this.stage = stage;
 		this.taskService = taskService;
-		this.taskService.Attach(this, "TaskPanel");
+		this.taskService.Attach(this, "NPCTalkPanel");
 		this.panel = new egret.DisplayObjectContainer();
 		this.taskNameTextField = new egret.TextField();
 		this.taskDescTextField = new egret.TextField();
@@ -139,17 +133,20 @@ class NPCTalkPanel implements Observer {
 				console.log("Accept Button Click");
 				console.log("Current Task Id: " + this.currentTaskId);
 				this.taskService.accept(this.currentTaskId);
+				this.stage.addChild(this.panel);
 				break;
 
 			case TaskStatus.DURING:
 				console.log("During Button Click");
 				this.taskService.during(this.currentTaskId);
+				this.stage.removeChild(this.panel);
 				break;
 
 
 			case TaskStatus.CAN_SUBMIT:
 				console.log("Submit Button Click");
 				this.taskService.finish(this.currentTaskId);
+				this.stage.addChild(this.panel);
 				break;
 
 			default:

@@ -1,8 +1,3 @@
-/*
-使用方法：
-    1.drawPanel();
-    2.获得panel
-*/
 var TaskPanel = (function () {
     function TaskPanel(stage, taskService) {
         this.backColor = 0xFFFAFA;
@@ -11,11 +6,11 @@ var TaskPanel = (function () {
         this.panelWidth = 200;
         this.panelHeight = 300;
         this.taskNameTextFieldText = "任务面板";
-        this.taskNameTextFieldX = 70;
+        this.taskNameTextFieldX = 40;
         this.taskNameTextFieldY = 50;
         this.taskNameTextFieldWidth = 200;
-        this.taskNameTextFieldColor = 0xFF0000;
-        this.taskDescTextFieldText = "无";
+        this.taskNameTextFieldColor = 0x000000;
+        this.taskDescTextFieldText = "";
         this.taskDescTextFieldX = 10;
         this.taskDescTextFieldY = 100;
         this.taskDescTextFieldWidth = 180;
@@ -26,7 +21,7 @@ var TaskPanel = (function () {
         this.buttonWidth = 130;
         this.buttonHeight = 70;
         this.buttonTextFieldText = "无任务";
-        this.buttonTextFieldX = this.buttonX + 15;
+        this.buttonTextFieldX = this.buttonX + 5;
         this.buttonTextFieldY = this.buttonY + 10;
         this.buttonTextFieldWidth = 120;
         this.buttonTextFieldColor = 0xFFFAFA;
@@ -57,6 +52,7 @@ var TaskPanel = (function () {
         this.taskDescTextField.width = this.taskDescTextFieldWidth;
         this.taskDescTextField.bold = false;
         this.taskDescTextField.textColor = this.taskDescTextFieldColor;
+        this.taskDescTextField.textAlign = egret.HorizontalAlign.LEFT;
     };
     p.drawBackGround = function () {
         this.backGround.graphics.beginFill(this.backColor, 1);
@@ -140,8 +136,8 @@ var TaskPanel = (function () {
                 this.buttonTextField.text = "完成任务";
                 break;
             case TaskStatus.SUBMITTED:
-                this.taskNameTextFieldText = "任务完成";
-                this.taskDescTextFieldText = "无";
+                this.taskNameTextField.text = "任务面板";
+                this.taskDescTextField.text = "无";
                 this.buttonTextField.text = "无任务";
                 break;
             default:

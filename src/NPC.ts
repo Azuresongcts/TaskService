@@ -1,8 +1,10 @@
 var emojiimage = {
-    npc_0: "walk01_png",
-    npc_1: "walk02_png",
-    npc_2: "walk03_png",
-    npc_3: "walk04_png"
+    npc_0: "NPC01_png",
+    npc_1: "NPC02_png",
+    ACCEPTABLEimage: "ACCEPTABLE_png",
+    DURINGimage: "DURING_png",
+    CANSUBMITTEDimage: "CANSUBMITTED_png",
+    UNACCEPTABLEimage: "UNACCEPTABLE_png"
 };
 
 class NPC implements Observer {
@@ -109,7 +111,7 @@ class NPC implements Observer {
                 }
                 break;
             case TaskStatus.DURING:
-                if (this.task.fromNpcId == this.npcId) {
+                if (this.task.toNpcId == this.npcId) {
                     this.taskStateMachine.changeState(this.taskDuringState);
                 } else {
                     this.taskStateMachine.changeState(this.taskNoneState);
@@ -131,8 +133,8 @@ class NPC implements Observer {
 
     }
 
-    onNpcClick(e: egret.TouchEvent) {
-        this.checkTaskRules();
+    onNpcClick(e: egret.TouchEvent, task: Task = this.task, npcid: string = this.npcId) {
+        this.taskService.checkTaskRules(task, npcid);
     }
 
     onChange(task: Task) {
@@ -149,60 +151,6 @@ class NPC implements Observer {
             }
         }
     }
-    checkTaskRules() {
-        switch (this.task.status) {
-            case TaskStatus.ACCEPTABLE:
-                switch (this.task.id) {
-                    case "001":
-                        if (this.task.fromNpcId == this.npcId) {
-                            this.taskService.Notify(this.task);
 
-                        }
-                        break;
-                }
-                break;
-            case TaskStatus.CAN_SUBMIT:
-                switch (this.task.id) {
-                    case "001":
-                        if (this.task.toNpcId == this.npcId) {
-                            this.taskService.Notify(this.task);
-
-                        }
-                        break;
-                }
-                break;
-            case TaskStatus.DURING:
-                switch (this.task.id) {
-                    case "001":
-                        if (this.task.toNpcId == this.npcId) {
-                            this.task.status = TaskStatus.CAN_SUBMIT
-                            this.taskService.Notify(this.task);
-
-                        }
-                        break;
-                }
-                break;
-            case TaskStatus.SUBMITTED:
-                switch (this.task.id) {
-                    case "001":
-                        if (this.task.toNpcId == this.npcId) {
-                            this.taskService.Notify(this.task);
-
-                        }
-                        break;
-                }
-                break;
-            case TaskStatus.UNACCEPTABLE:
-                switch (this.task.id) {
-                    case "001":
-                        if (this.task.toNpcId == this.npcId) {
-                            this.taskService.Notify(this.task);
-
-                        }
-                        break;
-                }
-                break;
-        }
-    }
 }
 
