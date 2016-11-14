@@ -132,18 +132,7 @@ class NPC implements Observer {
     }
 
     onNpcClick(e: egret.TouchEvent) {
-        if (this.task.status == TaskStatus.ACCEPTABLE && this.task.fromNpcId == this.npcId) {
-            this.taskService.Notify(this.task);
-
-        } else if (this.task.status == TaskStatus.DURING && this.task.toNpcId == this.npcId) {
-            this.task.status = TaskStatus.CAN_SUBMIT
-            this.taskService.Notify(this.task);
-        } else if (this.task.status == TaskStatus.CAN_SUBMIT && this.task.toNpcId == this.npcId) {
-            //this.task.status = TaskStatus.SUBMITTED
-            this.taskService.Notify(this.task);
-        }  else if (this.task.status == TaskStatus.SUBMITTED && this.task.toNpcId == this.npcId) {
-            this.taskService.Notify(this.task);
-        } 
+        this.checkTaskRules();
     }
 
     onChange(task: Task) {
@@ -160,6 +149,60 @@ class NPC implements Observer {
             }
         }
     }
+    checkTaskRules() {
+        switch (this.task.status) {
+            case TaskStatus.ACCEPTABLE:
+                switch (this.task.id) {
+                    case "001":
+                        if (this.task.fromNpcId == this.npcId) {
+                            this.taskService.Notify(this.task);
 
+                        }
+                        break;
+                }
+                break;
+            case TaskStatus.CAN_SUBMIT:
+                switch (this.task.id) {
+                    case "001":
+                        if (this.task.toNpcId == this.npcId) {
+                            this.taskService.Notify(this.task);
+
+                        }
+                        break;
+                }
+                break;
+            case TaskStatus.DURING:
+                switch (this.task.id) {
+                    case "001":
+                        if (this.task.toNpcId == this.npcId) {
+                            this.task.status = TaskStatus.CAN_SUBMIT
+                            this.taskService.Notify(this.task);
+
+                        }
+                        break;
+                }
+                break;
+            case TaskStatus.SUBMITTED:
+                switch (this.task.id) {
+                    case "001":
+                        if (this.task.toNpcId == this.npcId) {
+                            this.taskService.Notify(this.task);
+
+                        }
+                        break;
+                }
+                break;
+            case TaskStatus.UNACCEPTABLE:
+                switch (this.task.id) {
+                    case "001":
+                        if (this.task.toNpcId == this.npcId) {
+                            this.taskService.Notify(this.task);
+
+                        }
+                        break;
+                }
+                break;
+        }
+    }
 }
 
