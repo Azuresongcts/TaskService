@@ -13,6 +13,7 @@ var game_file_list = [
 	"bin-debug/NPC.js",
 	"bin-debug/NPCset.js",
 	"bin-debug/NPCState.js",
+	"bin-debug/NPCTalkPanel.js",
 	"bin-debug/Observer.js",
 	"bin-debug/Task.js",
 	"bin-debug/TaskPanel.js",
