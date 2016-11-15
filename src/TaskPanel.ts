@@ -175,7 +175,7 @@ class TaskPanel implements Observer {
 	private changeButton(taskStatus: number) {
 		switch (taskStatus) {
 			case TaskStatus.ACCEPTABLE:
-				this.buttonTextField.text = "接受任务";
+				this.buttonTextField.text = "可接受";
 				break;
 
 			case TaskStatus.DURING:
@@ -183,7 +183,7 @@ class TaskPanel implements Observer {
 				break;
 
 			case TaskStatus.CAN_SUBMIT:
-				this.buttonTextField.text = "完成任务";
+				this.buttonTextField.text = "可提交";
 				break;
 
 			case TaskStatus.SUBMITTED:

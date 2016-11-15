@@ -34,9 +34,9 @@ class NPC implements Observer {
     taskSubmitState: State;
     taskDuringState: State;
     taskStateMachine: StateMachine;
+    NPCtalkpanel:NPCTalkPanel;
 
-
-    public constructor(npcId: string, npcName: string, taskService) {
+    public constructor(npcId: string, npcName: string, taskService,NPCtalkpanel:NPCTalkPanel) {
         this.npcStage = new egret.DisplayObjectContainer();
         this.npcStageShape = new egret.Shape();
         this.emoji = new egret.Bitmap();
@@ -51,7 +51,7 @@ class NPC implements Observer {
         this.taskSubmitState = new TaskSubmitState(this);
 
         this.taskStateMachine = new StateMachine(this.taskNoneState);
-
+        this.NPCtalkpanel=NPCtalkpanel;
     }
 
     getTask() {
@@ -134,7 +134,7 @@ class NPC implements Observer {
     }
 
     onNpcClick(e: egret.TouchEvent, task: Task = this.task, npcid: string = this.npcId) {
-        this.taskService.checkTaskRules(task, npcid);
+        this.taskService.checkTaskRules(task, npcid,this.NPCtalkpanel);
     }
 
     onChange(task: Task) {

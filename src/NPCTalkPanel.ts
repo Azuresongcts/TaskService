@@ -1,55 +1,55 @@
-class NPCTalkPanel implements Observer {
+class NPCTalkPanel {
+	panel:egret.DisplayObjectContainer;
 
-	panel: egret.DisplayObjectContainer;
+	stage:egret.DisplayObjectContainer;
 
-	stage: egret.DisplayObjectContainer;
-
-	private taskService: TaskService;
-	private currentTaskId: string;
-	private currentTaskStatus: number;
+	private taskService:TaskService;
+	private npc:NPC;
+	private currentTaskId:string;
+	private currentTaskStatus:number;
 
 	private backColor = 0xFFFAFA;
-	private backGround: egret.Shape;
+	private backGround:egret.Shape;
 	private panelX = 100;
-	private panelY = 100;
+	private panelY = 300;
 	private panelWidth = 200;
 	private panelHeight = 300;
 
-
-	private taskNameTextField: egret.TextField;
+	private taskNameTextField:egret.TextField;
 	private taskNameTextFieldText = "";
-	private taskNameTextFieldX = 70;
+	private taskNameTextFieldX = 40;
 	private taskNameTextFieldY = 50;
 	private taskNameTextFieldWidth = 200;
-	private taskNameTextFieldColor = 0xFF0000;
+	private taskNameTextFieldColor = 0x000000;
 
-	private taskDescTextField: egret.TextField;
+
+	private taskDescTextField:egret.TextField;
 	private taskDescTextFieldText = "";
 	private taskDescTextFieldX = 10;
 	private taskDescTextFieldY = 100;
 	private taskDescTextFieldWidth = 180;
 	private taskDescTextFieldColor = 0xFF0000;
-
-	private button: egret.DisplayObjectContainer;
-	private buttonBack: egret.Shape;
+	
+	private button:egret.DisplayObjectContainer;
+	private buttonBack:egret.Shape;
 	private buttonColor = 0x808000;
 	private buttonX = 30;
 	private buttonY = 200;
 	private buttonWidth = 130;
 	private buttonHeight = 70;
 
-	private buttonTextField: egret.TextField;
-	private buttonTextFieldText = "";
+
+	private buttonTextField:egret.TextField;
+	private buttonTextFieldText = "确认";
 	private buttonTextFieldX = this.buttonX + 15;
 	private buttonTextFieldY = this.buttonY + 10;
 	private buttonTextFieldWidth = 120;
 	private buttonTextFieldColor = 0xFFFAFA;
 
 
-	public constructor(stage: egret.DisplayObjectContainer, taskService: TaskService) {
+	public constructor(stage:egret.DisplayObjectContainer,taskService:TaskService) {
 		this.stage = stage;
 		this.taskService = taskService;
-		this.taskService.Attach(this, "NPCTalkPanel");
 		this.panel = new egret.DisplayObjectContainer();
 		this.taskNameTextField = new egret.TextField();
 		this.taskDescTextField = new egret.TextField();
@@ -57,11 +57,10 @@ class NPCTalkPanel implements Observer {
 		this.button = new egret.DisplayObjectContainer();
 		this.buttonBack = new egret.Shape();
 		this.buttonTextField = new egret.TextField();
-		this.stage.addChild(this.panel);
 		this.drawPanel();
 	}
 
-	private setText() {
+	private setText(){
 		this.taskNameTextField.text = this.taskNameTextFieldText;
 		this.taskNameTextField.x = this.taskNameTextFieldX;
 		this.taskNameTextField.y = this.taskNameTextFieldY;
@@ -80,15 +79,15 @@ class NPCTalkPanel implements Observer {
 	}
 
 	private drawBackGround() {
-		this.backGround.graphics.beginFill(this.backColor, 1);
-		this.backGround.graphics.drawRect(0, 0, this.panelWidth, this.panelHeight);
+		this.backGround.graphics.beginFill(this.backColor,1);
+		this.backGround.graphics.drawRect(0,0,this.panelWidth,this.panelHeight);
 		this.backGround.graphics.endFill();
 
 	}
 
 	private drawButtonBack() {
-		this.buttonBack.graphics.beginFill(this.buttonColor, 1);
-		this.buttonBack.graphics.drawRect(this.buttonX, this.buttonY, this.buttonWidth, this.buttonHeight);
+		this.buttonBack.graphics.beginFill(this.buttonColor,1);
+		this.buttonBack.graphics.drawRect(this.buttonX,this.buttonY,this.buttonWidth,this.buttonHeight);
 		this.buttonBack.graphics.endFill();
 
 	}
@@ -123,85 +122,73 @@ class NPCTalkPanel implements Observer {
 		this.panel.addChild(this.taskDescTextField);
 		this.panel.addChild(this.button);
 		this.button.touchEnabled = true;
-		this.button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+		this.button.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onButtonClick,this);
 
 	}
 
-	private onButtonClick(e: egret.TouchEvent) {
-		switch (this.currentTaskStatus) {
+	private onButtonClick(e:egret.TouchEvent) {
+		switch(this.currentTaskStatus){
 			case TaskStatus.ACCEPTABLE:
 				console.log("Accept Button Click");
-				console.log("Current Task Id: " + this.currentTaskId);
+				console.log("Current Task Id: "+ this.currentTaskId);
 				this.taskService.accept(this.currentTaskId);
-				this.stage.addChild(this.panel);
 				break;
-
-			case TaskStatus.DURING:
-				console.log("During Button Click");
-				this.taskService.during(this.currentTaskId);
-				this.stage.removeChild(this.panel);
-				break;
-
-
+			
 			case TaskStatus.CAN_SUBMIT:
 				console.log("Submit Button Click");
 				this.taskService.finish(this.currentTaskId);
-				this.stage.addChild(this.panel);
 				break;
 
 			default:
+				console.log("Button Click");
 
 		}
 
+		this.stage.removeChild(this.panel);
+
+	} //按钮被点击
+
+
+	public showPanel() {
+		this.stage.addChild(this.panel);
+
 	}
 
-	private onStageClick(e: egret.TouchEvent) {
-		console.log("Stage Click");
+	public removePanel() {
+		this.stage.removeChild(this.panel);
+
 	}
 
-
-	public onChange(task: Task) {
+	public onOpen(task:Task) {
 		this.currentTaskId = task.id;
-		this.changeTaskText(task.name, task.desc);
+		this.changeTaskText(task.name,task.desc);
 		this.changeButton(task.status);
 		this.currentTaskStatus = task.status;
+		this.showPanel();
 
-	}
+	} //被通知
 
-	private changeTaskText(name: string, desc: string) {
+	private changeTaskText(name:string,desc:string) {
 		this.taskNameTextField.text = name;
 		this.taskDescTextField.text = desc;
 
 	}
 
-	private changeButton(taskStatus: number) {
-		switch (taskStatus) {
+	private changeButton(taskStatus:number) {
+		switch(taskStatus){
 			case TaskStatus.ACCEPTABLE:
 				this.buttonTextField.text = "接受任务";
 				break;
 
-			case TaskStatus.DURING:
-				this.buttonTextField.text = "未完成";
-				break;
-
 			case TaskStatus.CAN_SUBMIT:
-				this.buttonTextField.text = "完成任务";
-				break;
-
-			case TaskStatus.SUBMITTED:
-				this.taskNameTextFieldText = "任务完成";
-				this.taskDescTextFieldText = "无";
-				this.buttonTextField.text = "无任务";
+				this.buttonTextField.text = "提交任务";
 				break;
 
 			default:
-				this.buttonTextField.text = "None";
+				this.buttonTextField.text = "";
 				break;
 
 		}
 
 	}
-
-
-
 }

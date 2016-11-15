@@ -133,7 +133,7 @@ var TaskPanel = (function () {
                 this.buttonTextField.text = "未完成";
                 break;
             case TaskStatus.CAN_SUBMIT:
-                this.buttonTextField.text = "完成任务";
+                this.buttonTextField.text = "可提交";
                 break;
             case TaskStatus.SUBMITTED:
                 this.taskNameTextField.text = "任务面板";

@@ -7,7 +7,7 @@ var emojiimage = {
     UNACCEPTABLEimage: "UNACCEPTABLE_png"
 };
 var NPC = (function () {
-    function NPC(npcId, npcName, taskService) {
+    function NPC(npcId, npcName, taskService, NPCtalkpanel) {
         this.tileSize = 64;
         this.emojiX = 0;
         this.emojiY = 64;
@@ -25,6 +25,7 @@ var NPC = (function () {
         this.taskDuringState = new TaskDuringState(this);
         this.taskSubmitState = new TaskSubmitState(this);
         this.taskStateMachine = new StateMachine(this.taskNoneState);
+        this.NPCtalkpanel = NPCtalkpanel;
     }
     var d = __define,c=NPC,p=c.prototype;
     p.getTask = function () {
@@ -95,7 +96,7 @@ var NPC = (function () {
     p.onNpcClick = function (e, task, npcid) {
         if (task === void 0) { task = this.task; }
         if (npcid === void 0) { npcid = this.npcId; }
-        this.taskService.checkTaskRules(task, npcid);
+        this.taskService.checkTaskRules(task, npcid, this.NPCtalkpanel);
     };
     p.onChange = function (task) {
         this.task = task;

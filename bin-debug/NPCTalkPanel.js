@@ -2,14 +2,14 @@ var NPCTalkPanel = (function () {
     function NPCTalkPanel(stage, taskService) {
         this.backColor = 0xFFFAFA;
         this.panelX = 100;
-        this.panelY = 100;
+        this.panelY = 300;
         this.panelWidth = 200;
         this.panelHeight = 300;
         this.taskNameTextFieldText = "";
-        this.taskNameTextFieldX = 70;
+        this.taskNameTextFieldX = 40;
         this.taskNameTextFieldY = 50;
         this.taskNameTextFieldWidth = 200;
-        this.taskNameTextFieldColor = 0xFF0000;
+        this.taskNameTextFieldColor = 0x000000;
         this.taskDescTextFieldText = "";
         this.taskDescTextFieldX = 10;
         this.taskDescTextFieldY = 100;
@@ -20,14 +20,13 @@ var NPCTalkPanel = (function () {
         this.buttonY = 200;
         this.buttonWidth = 130;
         this.buttonHeight = 70;
-        this.buttonTextFieldText = "";
+        this.buttonTextFieldText = "确认";
         this.buttonTextFieldX = this.buttonX + 15;
         this.buttonTextFieldY = this.buttonY + 10;
         this.buttonTextFieldWidth = 120;
         this.buttonTextFieldColor = 0xFFFAFA;
         this.stage = stage;
         this.taskService = taskService;
-        this.taskService.Attach(this, "NPCTalkPanel");
         this.panel = new egret.DisplayObjectContainer();
         this.taskNameTextField = new egret.TextField();
         this.taskDescTextField = new egret.TextField();
@@ -35,7 +34,6 @@ var NPCTalkPanel = (function () {
         this.button = new egret.DisplayObjectContainer();
         this.buttonBack = new egret.Shape();
         this.buttonTextField = new egret.TextField();
-        this.stage.addChild(this.panel);
         this.drawPanel();
     }
     var d = __define,c=NPCTalkPanel,p=c.prototype;
@@ -98,30 +96,29 @@ var NPCTalkPanel = (function () {
                 console.log("Accept Button Click");
                 console.log("Current Task Id: " + this.currentTaskId);
                 this.taskService.accept(this.currentTaskId);
-                this.stage.addChild(this.panel);
-                break;
-            case TaskStatus.DURING:
-                console.log("During Button Click");
-                this.taskService.during(this.currentTaskId);
-                this.stage.removeChild(this.panel);
                 break;
             case TaskStatus.CAN_SUBMIT:
                 console.log("Submit Button Click");
                 this.taskService.finish(this.currentTaskId);
-                this.stage.addChild(this.panel);
                 break;
             default:
+                console.log("Button Click");
         }
+        this.stage.removeChild(this.panel);
+    }; //按钮被点击
+    p.showPanel = function () {
+        this.stage.addChild(this.panel);
     };
-    p.onStageClick = function (e) {
-        console.log("Stage Click");
+    p.removePanel = function () {
+        this.stage.removeChild(this.panel);
     };
-    p.onChange = function (task) {
+    p.onOpen = function (task) {
         this.currentTaskId = task.id;
         this.changeTaskText(task.name, task.desc);
         this.changeButton(task.status);
         this.currentTaskStatus = task.status;
-    };
+        this.showPanel();
+    }; //被通知
     p.changeTaskText = function (name, desc) {
         this.taskNameTextField.text = name;
         this.taskDescTextField.text = desc;
@@ -131,19 +128,11 @@ var NPCTalkPanel = (function () {
             case TaskStatus.ACCEPTABLE:
                 this.buttonTextField.text = "接受任务";
                 break;
-            case TaskStatus.DURING:
-                this.buttonTextField.text = "未完成";
-                break;
             case TaskStatus.CAN_SUBMIT:
-                this.buttonTextField.text = "完成任务";
-                break;
-            case TaskStatus.SUBMITTED:
-                this.taskNameTextFieldText = "任务完成";
-                this.taskDescTextFieldText = "无";
-                this.buttonTextField.text = "无任务";
+                this.buttonTextField.text = "提交任务";
                 break;
             default:
-                this.buttonTextField.text = "None";
+                this.buttonTextField.text = "";
                 break;
         }
     };
