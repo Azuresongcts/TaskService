@@ -1,5 +1,5 @@
-var NPCTalkPanel = (function () {
-    function NPCTalkPanel(stage, taskService) {
+var DialoguePanel = (function () {
+    function DialoguePanel(stage, taskService) {
         this.backColor = 0xFFFAFA;
         this.panelX = 100;
         this.panelY = 300;
@@ -36,7 +36,7 @@ var NPCTalkPanel = (function () {
         this.buttonTextField = new egret.TextField();
         this.drawPanel();
     }
-    var d = __define,c=NPCTalkPanel,p=c.prototype;
+    var d = __define,c=DialoguePanel,p=c.prototype;
     p.setText = function () {
         this.taskNameTextField.text = this.taskNameTextFieldText;
         this.taskNameTextField.x = this.taskNameTextFieldX;
@@ -134,7 +134,7 @@ var NPCTalkPanel = (function () {
                 break;
         }
     };
-    return NPCTalkPanel;
+    return DialoguePanel;
 }());
-egret.registerClass(NPCTalkPanel,'NPCTalkPanel');
-//# sourceMappingURL=NPCTalkPanel.js.map
+egret.registerClass(DialoguePanel,'DialoguePanel');
+//# sourceMappingURL=DialoguePanel.js.map

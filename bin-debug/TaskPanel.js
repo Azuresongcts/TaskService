@@ -1,21 +1,25 @@
 var TaskPanel = (function () {
     function TaskPanel(stage, taskService) {
-        this.backColor = 0xFFFAFA;
+        this.backColor = 0xE3CF57;
         this.panelX = 300;
         this.panelY = 100;
         this.panelWidth = 200;
         this.panelHeight = 300;
         this.taskNameTextFieldText = "任务面板";
         this.taskNameTextFieldX = 40;
-        this.taskNameTextFieldY = 50;
+        this.taskNameTextFieldY = 10;
         this.taskNameTextFieldWidth = 200;
-        this.taskNameTextFieldColor = 0x000000;
+        this.taskNameTextFieldHeight = 30;
+        this.taskNameBackX = 0;
+        this.taskNameBackY = 10;
+        this.taskNameTextFieldColor = 0xFFFFFF;
+        this.taskNameColor = 0x000000;
         this.taskInformationTextFieldText = "";
         this.taskInformationTextFieldX = 10;
         this.taskInformationTextFieldY = 100;
         this.taskInformationFieldWidth = 180;
-        this.taskInformationTextFieldColor = 0xFF0000;
-        this.buttonColor = 0x808000;
+        this.taskInformationTextFieldColor = 0x000000;
+        this.buttonColor = 0x802A2A;
         this.buttonX = 30;
         this.buttonY = 200;
         this.buttonWidth = 130;
@@ -34,18 +38,21 @@ var TaskPanel = (function () {
         this.backGround = new egret.Shape();
         this.button = new egret.DisplayObjectContainer();
         this.buttonBack = new egret.Shape();
+        this.taskNameBack = new egret.Shape();
         this.buttonTextField = new egret.TextField();
         this.stage.addChild(this.panel);
         this.drawPanel();
     }
     var d = __define,c=TaskPanel,p=c.prototype;
     p.setText = function () {
+        this.taskNameTextField.fontFamily = "KaiTi";
         this.taskNameTextField.text = this.taskNameTextFieldText;
         this.taskNameTextField.x = this.taskNameTextFieldX;
         this.taskNameTextField.y = this.taskNameTextFieldY;
         this.taskNameTextField.width = this.taskNameTextFieldWidth;
         this.taskNameTextField.bold = true;
         this.taskNameTextField.textColor = this.taskNameTextFieldColor;
+        this.taskInformaTextField.fontFamily = "KaiTi";
         this.taskInformaTextField.text = this.taskInformationTextFieldText;
         this.taskInformaTextField.x = this.taskInformationTextFieldX;
         this.taskInformaTextField.y = this.taskInformationTextFieldY;
@@ -64,7 +71,13 @@ var TaskPanel = (function () {
         this.buttonBack.graphics.drawRect(this.buttonX, this.buttonY, this.buttonWidth, this.buttonHeight);
         this.buttonBack.graphics.endFill();
     };
+    p.drawTaskNameBack = function () {
+        this.taskNameBack.graphics.beginFill(this.taskNameColor, 1);
+        this.taskNameBack.graphics.drawRect(this.taskNameBackX, this.taskNameBackY, this.taskNameTextFieldWidth, this.taskNameTextFieldHeight);
+        this.taskNameBack.graphics.endFill();
+    };
     p.setButtonText = function () {
+        this.buttonTextField.fontFamily = "KaiTi";
         this.buttonTextField.text = this.buttonTextFieldText;
         this.buttonTextField.x = this.buttonTextFieldX;
         this.buttonTextField.y = this.buttonTextFieldY;
@@ -83,10 +96,12 @@ var TaskPanel = (function () {
         this.panel.y = this.panelY;
         this.panel.width = this.panelWidth;
         this.panel.height = this.panelHeight;
+        this.drawTaskNameBack();
         this.drawButton();
         this.drawBackGround();
         this.setText();
         this.panel.addChild(this.backGround);
+        this.panel.addChild(this.taskNameBack);
         this.panel.addChild(this.taskNameTextField);
         this.panel.addChild(this.taskInformaTextField);
         this.panel.addChild(this.button);

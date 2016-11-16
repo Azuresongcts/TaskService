@@ -60,13 +60,13 @@ var TaskService = (function () {
     p.getTaskByCustomRole = function (rule, Id) {
         return rule(this.taskList, Id);
     };
-    p.checkTaskRules = function (task, npcId, NPCtalkpanel) {
+    p.checkTaskRules = function (task, npcId, DialoguePanel) {
         switch (task.status) {
             case TaskStatus.ACCEPTABLE:
                 switch (task.id) {
                     case "001":
                         if (task.fromNpcId == npcId) {
-                            NPCtalkpanel.onOpen(task);
+                            DialoguePanel.onOpen(task);
                             this.Notify(task);
                         }
                         break;
@@ -86,7 +86,7 @@ var TaskService = (function () {
                     case "001":
                         if (task.toNpcId == npcId) {
                             task.status = TaskStatus.CAN_SUBMIT;
-                            NPCtalkpanel.onOpen(task);
+                            DialoguePanel.onOpen(task);
                             this.Notify(task);
                         }
                         break;

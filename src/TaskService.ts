@@ -67,13 +67,13 @@ class TaskService {
 		return rule(this.taskList, Id);
 
 	}
-	checkTaskRules(task: Task, npcId: string, NPCtalkpanel: NPCTalkPanel) {
+	checkTaskRules(task: Task, npcId: string,DialoguePanel:DialoguePanel) {
         switch (task.status) {
             case TaskStatus.ACCEPTABLE:
                 switch (task.id) {
                     case "001":
                         if (task.fromNpcId == npcId) {
-							NPCtalkpanel.onOpen(task);
+							DialoguePanel.onOpen(task);
 							this.Notify(task);
                         }
                         break;
@@ -95,7 +95,7 @@ class TaskService {
                         if (task.toNpcId == npcId) {
 
                             task.status = TaskStatus.CAN_SUBMIT;
-							NPCtalkpanel.onOpen(task);
+							DialoguePanel.onOpen(task);
                             this.Notify(task);
                         }
                         break;

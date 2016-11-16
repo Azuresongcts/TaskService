@@ -1,4 +1,4 @@
-class NPCTalkPanel {
+class DialoguePanel {
 	panel: egret.DisplayObjectContainer;
 
 	stage: egret.DisplayObjectContainer;

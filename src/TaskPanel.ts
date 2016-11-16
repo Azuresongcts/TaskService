@@ -8,7 +8,7 @@ class TaskPanel implements Observer {
 	private currentTaskId: string;
 	private currentTaskStatus: number;
 
-	private backColor = 0xFFFAFA;
+	private backColor = 0xE3CF57;
 	private backGround: egret.Shape;
 	private panelX = 300;
 	private panelY = 100;
@@ -19,20 +19,25 @@ class TaskPanel implements Observer {
 	private taskNameTextField: egret.TextField;
 	private taskNameTextFieldText = "任务面板";
 	private taskNameTextFieldX = 40;
-	private taskNameTextFieldY = 50;
+	private taskNameTextFieldY = 10;
 	private taskNameTextFieldWidth = 200;
-	private taskNameTextFieldColor = 0x000000;
+	private taskNameTextFieldHeight = 30;
+	private taskNameBackX=0;
+	private taskNameBackY=10;
+	private taskNameTextFieldColor = 0xFFFFFF;
+	private taskNameBack: egret.Shape;
+	private taskNameColor = 0x000000;
 
 	private taskInformaTextField: egret.TextField;
 	private taskInformationTextFieldText = "";
 	private taskInformationTextFieldX = 10;
 	private taskInformationTextFieldY = 100;
 	private taskInformationFieldWidth = 180;
-	private taskInformationTextFieldColor = 0xFF0000;
+	private taskInformationTextFieldColor = 0x000000;
 
 	private button: egret.DisplayObjectContainer;
 	private buttonBack: egret.Shape;
-	private buttonColor = 0x808000;
+	private buttonColor = 0x802A2A;
 	private buttonX = 30;
 	private buttonY = 200;
 	private buttonWidth = 130;
@@ -56,12 +61,14 @@ class TaskPanel implements Observer {
 		this.backGround = new egret.Shape();
 		this.button = new egret.DisplayObjectContainer();
 		this.buttonBack = new egret.Shape();
+		this.taskNameBack = new egret.Shape();
 		this.buttonTextField = new egret.TextField();
 		this.stage.addChild(this.panel);
 		this.drawPanel();
 	}
 
 	private setText() {
+		this.taskNameTextField.fontFamily = "KaiTi";
 		this.taskNameTextField.text = this.taskNameTextFieldText;
 		this.taskNameTextField.x = this.taskNameTextFieldX;
 		this.taskNameTextField.y = this.taskNameTextFieldY;
@@ -69,6 +76,7 @@ class TaskPanel implements Observer {
 		this.taskNameTextField.bold = true;
 		this.taskNameTextField.textColor = this.taskNameTextFieldColor;
 
+		this.taskInformaTextField.fontFamily = "KaiTi";
 		this.taskInformaTextField.text = this.taskInformationTextFieldText;
 		this.taskInformaTextField.x = this.taskInformationTextFieldX;
 		this.taskInformaTextField.y = this.taskInformationTextFieldY;
@@ -94,7 +102,15 @@ class TaskPanel implements Observer {
 
 	}
 
+	private drawTaskNameBack() {
+		this.taskNameBack.graphics.beginFill(this.taskNameColor, 1);
+		this.taskNameBack.graphics.drawRect(this.taskNameBackX, this.taskNameBackY, this.taskNameTextFieldWidth, this.taskNameTextFieldHeight);
+		this.taskNameBack.graphics.endFill();
+
+	}
+
 	private setButtonText() {
+		this.buttonTextField.fontFamily = "KaiTi";
 		this.buttonTextField.text = this.buttonTextFieldText;
 		this.buttonTextField.x = this.buttonTextFieldX;
 		this.buttonTextField.y = this.buttonTextFieldY;
@@ -116,13 +132,16 @@ class TaskPanel implements Observer {
 		this.panel.y = this.panelY;
 		this.panel.width = this.panelWidth;
 		this.panel.height = this.panelHeight;
+		this.drawTaskNameBack();
 		this.drawButton();
 		this.drawBackGround();
 		this.setText();
 		this.panel.addChild(this.backGround);
+		this.panel.addChild(this.taskNameBack);
 		this.panel.addChild(this.taskNameTextField);
 		this.panel.addChild(this.taskInformaTextField);
 		this.panel.addChild(this.button);
+
 		this.button.touchEnabled = true;
 		this.button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
 
@@ -179,8 +198,8 @@ class TaskPanel implements Observer {
 				break;
 
 			case TaskStatus.SUBMITTED:
-				this.taskNameTextField.text= "任务面板";
-				this.taskInformaTextField.text= "无";
+				this.taskNameTextField.text = "任务面板";
+				this.taskInformaTextField.text = "无";
 				this.buttonTextField.text = "无任务";
 				break;
 
