@@ -8,16 +8,16 @@ class DialoguePanel {
 	private currentTaskId: string;
 	private currentTaskStatus: number;
 
-	private backColor = 0xFFFAFA;
+	private backColor =  0xE3CF57;
 	private backGround: egret.Shape;
-	private panelX = 100;
-	private panelY = 300;
-	private panelWidth = 200;
-	private panelHeight = 300;
+	private panelX = 50;
+	private panelY = 200;
+	private panelWidth = 300;
+	private panelHeight = 500;
 
 	private taskNameTextField: egret.TextField;
 	private taskNameTextFieldText = "";
-	private taskNameTextFieldX = 40;
+	private taskNameTextFieldX = this.panelWidth / 2 - 50;
 	private taskNameTextFieldY = 50;
 	private taskNameTextFieldWidth = 200;
 	private taskNameTextFieldColor = 0x000000;
@@ -28,13 +28,13 @@ class DialoguePanel {
 	private taskDescTextFieldX = 10;
 	private taskDescTextFieldY = 100;
 	private taskDescTextFieldWidth = 180;
-	private taskDescTextFieldColor = 0xFF0000;
+	private taskDescTextFieldColor = 0x000000;
 
 	private button: egret.DisplayObjectContainer;
 	private buttonBack: egret.Shape;
-	private buttonColor = 0x808000;
-	private buttonX = 30;
-	private buttonY = 200;
+	private buttonColor = 0x802A2A;
+	private buttonX =  this.panelWidth / 2 - 50;
+	private buttonY = this.panelHeight-100;
 	private buttonWidth = 130;
 	private buttonHeight = 70;
 
@@ -74,7 +74,7 @@ class DialoguePanel {
 		this.taskDescTextField.width = this.taskDescTextFieldWidth;
 		this.taskDescTextField.bold = false;
 		this.taskDescTextField.textColor = this.taskDescTextFieldColor;
-
+		this.taskDescTextField.textAlign = egret.HorizontalAlign.CENTER;
 
 	}
 

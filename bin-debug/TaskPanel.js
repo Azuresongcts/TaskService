@@ -123,13 +123,15 @@ var TaskPanel = (function () {
     };
     p.onChange = function (task) {
         this.currentTaskId = task.id;
-        this.changeTaskText(task.name, task.desc);
+        this.changeTaskText(task.name, task.desc, task);
         this.changeButton(task.status);
         this.currentTaskStatus = task.status;
     };
-    p.changeTaskText = function (name, desc) {
-        this.taskNameTextField.text = name;
-        this.taskInformaTextField.text = desc;
+    p.changeTaskText = function (name, desc, task) {
+        if (task.status > 1) {
+            this.taskNameTextField.text = name;
+            this.taskInformaTextField.text = desc;
+        }
     };
     p.changeButton = function (taskStatus) {
         switch (taskStatus) {
@@ -144,7 +146,7 @@ var TaskPanel = (function () {
                 break;
             case TaskStatus.SUBMITTED:
                 this.taskNameTextField.text = "任务面板";
-                this.taskInformaTextField.text = "无";
+                this.taskInformaTextField.text = "";
                 this.buttonTextField.text = "无任务";
                 break;
             default:

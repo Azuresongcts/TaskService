@@ -1,12 +1,12 @@
 var DialoguePanel = (function () {
     function DialoguePanel(stage, taskService) {
-        this.backColor = 0xFFFAFA;
-        this.panelX = 100;
-        this.panelY = 300;
-        this.panelWidth = 200;
-        this.panelHeight = 300;
+        this.backColor = 0xE3CF57;
+        this.panelX = 50;
+        this.panelY = 200;
+        this.panelWidth = 300;
+        this.panelHeight = 500;
         this.taskNameTextFieldText = "";
-        this.taskNameTextFieldX = 40;
+        this.taskNameTextFieldX = this.panelWidth / 2 - 50;
         this.taskNameTextFieldY = 50;
         this.taskNameTextFieldWidth = 200;
         this.taskNameTextFieldColor = 0x000000;
@@ -14,10 +14,10 @@ var DialoguePanel = (function () {
         this.taskDescTextFieldX = 10;
         this.taskDescTextFieldY = 100;
         this.taskDescTextFieldWidth = 180;
-        this.taskDescTextFieldColor = 0xFF0000;
-        this.buttonColor = 0x808000;
-        this.buttonX = 30;
-        this.buttonY = 200;
+        this.taskDescTextFieldColor = 0x000000;
+        this.buttonColor = 0x802A2A;
+        this.buttonX = this.panelWidth / 2 - 50;
+        this.buttonY = this.panelHeight - 100;
         this.buttonWidth = 130;
         this.buttonHeight = 70;
         this.buttonTextFieldText = "确认";
@@ -50,6 +50,7 @@ var DialoguePanel = (function () {
         this.taskDescTextField.width = this.taskDescTextFieldWidth;
         this.taskDescTextField.bold = false;
         this.taskDescTextField.textColor = this.taskDescTextFieldColor;
+        this.taskDescTextField.textAlign = egret.HorizontalAlign.CENTER;
     };
     p.drawBackGround = function () {
         this.backGround.graphics.beginFill(this.backColor, 1);

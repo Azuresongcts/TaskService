@@ -22,8 +22,8 @@ class TaskPanel implements Observer {
 	private taskNameTextFieldY = 10;
 	private taskNameTextFieldWidth = 200;
 	private taskNameTextFieldHeight = 30;
-	private taskNameBackX=0;
-	private taskNameBackY=10;
+	private taskNameBackX = 0;
+	private taskNameBackY = 10;
 	private taskNameTextFieldColor = 0xFFFFFF;
 	private taskNameBack: egret.Shape;
 	private taskNameColor = 0x000000;
@@ -48,6 +48,7 @@ class TaskPanel implements Observer {
 	private buttonTextFieldX = this.buttonX + 5;
 	private buttonTextFieldY = this.buttonY + 10;
 	private buttonTextFieldWidth = 120;
+
 	private buttonTextFieldColor = 0xFFFAFA;
 
 
@@ -171,16 +172,17 @@ class TaskPanel implements Observer {
 
 	public onChange(task: Task) {
 		this.currentTaskId = task.id;
-		this.changeTaskText(task.name, task.desc);
+		this.changeTaskText(task.name, task.desc, task);
 		this.changeButton(task.status);
 		this.currentTaskStatus = task.status;
 
 	}
 
-	private changeTaskText(name: string, desc: string) {
-		this.taskNameTextField.text = name;
-		this.taskInformaTextField.text = desc;
-
+	private changeTaskText(name: string, desc: string, task: Task) {
+		if (task.status > 1) {
+			this.taskNameTextField.text = name;
+			this.taskInformaTextField.text = desc;
+		}
 	}
 
 	private changeButton(taskStatus: number) {
@@ -199,7 +201,7 @@ class TaskPanel implements Observer {
 
 			case TaskStatus.SUBMITTED:
 				this.taskNameTextField.text = "任务面板";
-				this.taskInformaTextField.text = "无";
+				this.taskInformaTextField.text = "";
 				this.buttonTextField.text = "无任务";
 				break;
 
