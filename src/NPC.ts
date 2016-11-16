@@ -145,7 +145,6 @@ class NPC implements Observer {
     rule(taskList: Task[], npcId: string): Task {
         for (var i = 0; i < taskList.length; i++) {
             if (taskList[i].fromNpcId == npcId || taskList[i].toNpcId == npcId) {
-                console.log("Find");
                 return taskList[i];
 
             }

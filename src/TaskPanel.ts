@@ -23,12 +23,12 @@ class TaskPanel implements Observer {
 	private taskNameTextFieldWidth = 200;
 	private taskNameTextFieldColor = 0x000000;
 
-	private taskDescTextField: egret.TextField;
-	private taskDescTextFieldText = "";
-	private taskDescTextFieldX = 10;
-	private taskDescTextFieldY = 100;
-	private taskDescTextFieldWidth = 180;
-	private taskDescTextFieldColor = 0xFF0000;
+	private taskInformaTextField: egret.TextField;
+	private taskInformationTextFieldText = "";
+	private taskInformationTextFieldX = 10;
+	private taskInformationTextFieldY = 100;
+	private taskInformationFieldWidth = 180;
+	private taskInformationTextFieldColor = 0xFF0000;
 
 	private button: egret.DisplayObjectContainer;
 	private buttonBack: egret.Shape;
@@ -52,7 +52,7 @@ class TaskPanel implements Observer {
 		this.taskService.Attach(this, "TaskPanel");
 		this.panel = new egret.DisplayObjectContainer();
 		this.taskNameTextField = new egret.TextField();
-		this.taskDescTextField = new egret.TextField();
+		this.taskInformaTextField = new egret.TextField();
 		this.backGround = new egret.Shape();
 		this.button = new egret.DisplayObjectContainer();
 		this.buttonBack = new egret.Shape();
@@ -69,13 +69,13 @@ class TaskPanel implements Observer {
 		this.taskNameTextField.bold = true;
 		this.taskNameTextField.textColor = this.taskNameTextFieldColor;
 
-		this.taskDescTextField.text = this.taskDescTextFieldText;
-		this.taskDescTextField.x = this.taskDescTextFieldX;
-		this.taskDescTextField.y = this.taskDescTextFieldY;
-		this.taskDescTextField.width = this.taskDescTextFieldWidth;
-		this.taskDescTextField.bold = false;
-		this.taskDescTextField.textColor = this.taskDescTextFieldColor;
-		this.taskDescTextField.textAlign = egret.HorizontalAlign.LEFT;
+		this.taskInformaTextField.text = this.taskInformationTextFieldText;
+		this.taskInformaTextField.x = this.taskInformationTextFieldX;
+		this.taskInformaTextField.y = this.taskInformationTextFieldY;
+		this.taskInformaTextField.width = this.taskInformationFieldWidth;
+		this.taskInformaTextField.bold = false;
+		this.taskInformaTextField.textColor = this.taskInformationTextFieldColor;
+		this.taskInformaTextField.textAlign = egret.HorizontalAlign.LEFT;
 
 
 	}
@@ -121,7 +121,7 @@ class TaskPanel implements Observer {
 		this.setText();
 		this.panel.addChild(this.backGround);
 		this.panel.addChild(this.taskNameTextField);
-		this.panel.addChild(this.taskDescTextField);
+		this.panel.addChild(this.taskInformaTextField);
 		this.panel.addChild(this.button);
 		this.button.touchEnabled = true;
 		this.button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
@@ -131,20 +131,13 @@ class TaskPanel implements Observer {
 	private onButtonClick(e: egret.TouchEvent) {
 		switch (this.currentTaskStatus) {
 			case TaskStatus.ACCEPTABLE:
-				console.log("Accept Button Click");
-				console.log("Current Task Id: " + this.currentTaskId);
-				this.taskService.accept(this.currentTaskId);
 				break;
 
 			case TaskStatus.DURING:
-				console.log("During Button Click");
-				this.taskService.during(this.currentTaskId);
 				break;
 
 
 			case TaskStatus.CAN_SUBMIT:
-				console.log("Submit Button Click");
-				this.taskService.finish(this.currentTaskId);
 				break;
 
 			default:
@@ -154,7 +147,6 @@ class TaskPanel implements Observer {
 	}
 
 	private onStageClick(e: egret.TouchEvent) {
-		console.log("Stage Click");
 	}
 
 
@@ -168,7 +160,7 @@ class TaskPanel implements Observer {
 
 	private changeTaskText(name: string, desc: string) {
 		this.taskNameTextField.text = name;
-		this.taskDescTextField.text = desc;
+		this.taskInformaTextField.text = desc;
 
 	}
 
@@ -188,7 +180,7 @@ class TaskPanel implements Observer {
 
 			case TaskStatus.SUBMITTED:
 				this.taskNameTextField.text= "任务面板";
-				this.taskDescTextField.text= "无";
+				this.taskInformaTextField.text= "无";
 				this.buttonTextField.text = "无任务";
 				break;
 

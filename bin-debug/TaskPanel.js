@@ -10,11 +10,11 @@ var TaskPanel = (function () {
         this.taskNameTextFieldY = 50;
         this.taskNameTextFieldWidth = 200;
         this.taskNameTextFieldColor = 0x000000;
-        this.taskDescTextFieldText = "";
-        this.taskDescTextFieldX = 10;
-        this.taskDescTextFieldY = 100;
-        this.taskDescTextFieldWidth = 180;
-        this.taskDescTextFieldColor = 0xFF0000;
+        this.taskInformationTextFieldText = "";
+        this.taskInformationTextFieldX = 10;
+        this.taskInformationTextFieldY = 100;
+        this.taskInformationFieldWidth = 180;
+        this.taskInformationTextFieldColor = 0xFF0000;
         this.buttonColor = 0x808000;
         this.buttonX = 30;
         this.buttonY = 200;
@@ -30,7 +30,7 @@ var TaskPanel = (function () {
         this.taskService.Attach(this, "TaskPanel");
         this.panel = new egret.DisplayObjectContainer();
         this.taskNameTextField = new egret.TextField();
-        this.taskDescTextField = new egret.TextField();
+        this.taskInformaTextField = new egret.TextField();
         this.backGround = new egret.Shape();
         this.button = new egret.DisplayObjectContainer();
         this.buttonBack = new egret.Shape();
@@ -46,13 +46,13 @@ var TaskPanel = (function () {
         this.taskNameTextField.width = this.taskNameTextFieldWidth;
         this.taskNameTextField.bold = true;
         this.taskNameTextField.textColor = this.taskNameTextFieldColor;
-        this.taskDescTextField.text = this.taskDescTextFieldText;
-        this.taskDescTextField.x = this.taskDescTextFieldX;
-        this.taskDescTextField.y = this.taskDescTextFieldY;
-        this.taskDescTextField.width = this.taskDescTextFieldWidth;
-        this.taskDescTextField.bold = false;
-        this.taskDescTextField.textColor = this.taskDescTextFieldColor;
-        this.taskDescTextField.textAlign = egret.HorizontalAlign.LEFT;
+        this.taskInformaTextField.text = this.taskInformationTextFieldText;
+        this.taskInformaTextField.x = this.taskInformationTextFieldX;
+        this.taskInformaTextField.y = this.taskInformationTextFieldY;
+        this.taskInformaTextField.width = this.taskInformationFieldWidth;
+        this.taskInformaTextField.bold = false;
+        this.taskInformaTextField.textColor = this.taskInformationTextFieldColor;
+        this.taskInformaTextField.textAlign = egret.HorizontalAlign.LEFT;
     };
     p.drawBackGround = function () {
         this.backGround.graphics.beginFill(this.backColor, 1);
@@ -88,7 +88,7 @@ var TaskPanel = (function () {
         this.setText();
         this.panel.addChild(this.backGround);
         this.panel.addChild(this.taskNameTextField);
-        this.panel.addChild(this.taskDescTextField);
+        this.panel.addChild(this.taskInformaTextField);
         this.panel.addChild(this.button);
         this.button.touchEnabled = true;
         this.button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
@@ -96,23 +96,15 @@ var TaskPanel = (function () {
     p.onButtonClick = function (e) {
         switch (this.currentTaskStatus) {
             case TaskStatus.ACCEPTABLE:
-                console.log("Accept Button Click");
-                console.log("Current Task Id: " + this.currentTaskId);
-                this.taskService.accept(this.currentTaskId);
                 break;
             case TaskStatus.DURING:
-                console.log("During Button Click");
-                this.taskService.during(this.currentTaskId);
                 break;
             case TaskStatus.CAN_SUBMIT:
-                console.log("Submit Button Click");
-                this.taskService.finish(this.currentTaskId);
                 break;
             default:
         }
     };
     p.onStageClick = function (e) {
-        console.log("Stage Click");
     };
     p.onChange = function (task) {
         this.currentTaskId = task.id;
@@ -122,12 +114,12 @@ var TaskPanel = (function () {
     };
     p.changeTaskText = function (name, desc) {
         this.taskNameTextField.text = name;
-        this.taskDescTextField.text = desc;
+        this.taskInformaTextField.text = desc;
     };
     p.changeButton = function (taskStatus) {
         switch (taskStatus) {
             case TaskStatus.ACCEPTABLE:
-                this.buttonTextField.text = "接受任务";
+                this.buttonTextField.text = "可接受";
                 break;
             case TaskStatus.DURING:
                 this.buttonTextField.text = "未完成";
@@ -137,7 +129,7 @@ var TaskPanel = (function () {
                 break;
             case TaskStatus.SUBMITTED:
                 this.taskNameTextField.text = "任务面板";
-                this.taskDescTextField.text = "无";
+                this.taskInformaTextField.text = "无";
                 this.buttonTextField.text = "无任务";
                 break;
             default:
