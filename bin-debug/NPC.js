@@ -1,6 +1,5 @@
 var emojiimage = {
     npc_0: "NPC01_png",
-    npc_1: "NPC02_png",
     ACCEPTABLEimage: "ACCEPTABLE_png",
     DURINGimage: "DURING_png",
     CANSUBMITTEDimage: "CANSUBMITTED_png",

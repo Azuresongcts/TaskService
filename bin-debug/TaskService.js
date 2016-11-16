@@ -66,7 +66,7 @@ var TaskService = (function () {
                 switch (task.id) {
                     case "001":
                         if (task.fromNpcId == npcId) {
-                            DialoguePanel.onOpen(task);
+                            DialoguePanel.dialogueOpen(task);
                             this.Notify(task);
                         }
                         break;
@@ -86,7 +86,7 @@ var TaskService = (function () {
                     case "001":
                         if (task.toNpcId == npcId) {
                             task.status = TaskStatus.CAN_SUBMIT;
-                            DialoguePanel.onOpen(task);
+                            DialoguePanel.dialogueOpen(task);
                             this.Notify(task);
                         }
                         break;
