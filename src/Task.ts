@@ -1,10 +1,21 @@
-class Task {
+class Task implements TaskCondition{
     id: string;
     name: string;
     desc: string;
     status: TaskStatus;
     fromNpcId: string;
     toNpcId: string;
+    total:number;
+    private condition:TaskCondition;
+    onAccept(task){
+
+    }
+    onSubmit(task){
+
+    }
+    private checkStatus(){
+        
+    }
     public constructor(id, name, desc, status, fromNpcID, toNpcId) {
         this.id=id;
         this.name=name;

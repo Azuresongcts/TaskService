@@ -13,12 +13,12 @@ var DialoguePanel = (function () {
         this.taskInformationTextFieldText = "";
         this.taskInformationTextFieldX = 10;
         this.taskInformationTextFieldY = 100;
-        this.taskInformationTextFieldWidth = 180;
+        this.taskInformationTextFieldWidth = 220;
         this.taskInformationTextFieldColor = 0x000000;
         this.buttonColor = 0x802A2A;
-        this.buttonX = this.panelWidth / 2 - 50;
+        this.buttonX = this.panelWidth / 2 - 70;
         this.buttonY = this.panelHeight - 100;
-        this.buttonWidth = 130;
+        this.buttonWidth = 160;
         this.buttonHeight = 70;
         this.buttonTextFieldText = "确认";
         this.buttonTextFieldX = this.buttonX + 15;
@@ -117,7 +117,7 @@ var DialoguePanel = (function () {
         this.changeButton(task.status);
         this.currentTaskStatus = task.status;
         this.showPanel();
-    }; //被通知
+    };
     p.changeTaskText = function (name, desc) {
         this.taskNameTextField.text = name;
         this.taskInformationField.text = desc;
@@ -132,7 +132,6 @@ var DialoguePanel = (function () {
                 break;
             default:
                 this.buttonTextField.text = "";
-                break;
         }
     };
     return DialoguePanel;

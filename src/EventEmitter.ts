@@ -1,0 +1,8 @@
+class EventEmitter{
+    addObserver(){
+
+    }
+    notify(){
+        
+    }
+}

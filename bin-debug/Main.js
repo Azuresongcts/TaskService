@@ -105,12 +105,13 @@ var Main = (function (_super) {
         var taskService = new TaskService();
         var taskPanel = new TaskPanel(this, taskService);
         var dialoguepanel = new DialoguePanel(this, taskService);
-        var npc_0 = new NPC("npc_0", "NPC_1", taskService, dialoguepanel);
+        var mockkillmonsterbutton = new MockKillMonsterButton(this, taskService);
+        var npc_0 = new NPC("npc_0", "NPC_1", taskService, dialoguepanel, mockkillmonsterbutton);
         npc_0.setNpc(0, 100, 0x800080);
         npc_0.drawNpc();
         this.addChild(npc_0.npcStage);
         npc_0.getTask();
-        var npc_1 = new NPC("npc_1", "NPC_2", taskService, dialoguepanel);
+        var npc_1 = new NPC("npc_1", "NPC_2", taskService, dialoguepanel, mockkillmonsterbutton);
         npc_1.setNpc(200, 100, 0x0000FF);
         npc_1.drawNpc();
         this.addChild(npc_1.npcStage);

@@ -26,16 +26,16 @@ class DialoguePanel {
 	private taskInformationField: egret.TextField;
 	private taskInformationTextFieldText = "";
 	private taskInformationTextFieldX = 10;
-	private taskInformationTextFieldY = 100;
-	private taskInformationTextFieldWidth = 180;
+	private taskInformationTextFieldY =100;
+	private taskInformationTextFieldWidth = 220;
 	private taskInformationTextFieldColor = 0x000000;
 
 	private button: egret.DisplayObjectContainer;
 	private buttonBack: egret.Shape;
 	private buttonColor = 0x802A2A;
-	private buttonX =  this.panelWidth / 2 - 50;
+	private buttonX =  this.panelWidth / 2 -70;
 	private buttonY = this.panelHeight-100;
-	private buttonWidth = 130;
+	private buttonWidth = 160;
 	private buttonHeight = 70;
 
 

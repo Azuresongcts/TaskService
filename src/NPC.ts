@@ -34,8 +34,9 @@ class NPC implements Observer {
     taskDuringState: State;
     taskStateMachine: StateMachine;
     dialoguePanel:DialoguePanel;
+    mockkillmosterbutton:MockKillMonsterButton;
 
-    public constructor(npcId: string, npcName: string, taskService,NPCtalkpanel:DialoguePanel) {
+    public constructor(npcId: string, npcName: string, taskService,NPCtalkpanel:DialoguePanel,mockkillmonsterpanel:MockKillMonsterButton) {
         this.npcStage = new egret.DisplayObjectContainer();
         this.npcStageShape = new egret.Shape();
         this.emoji = new egret.Bitmap();
@@ -132,7 +133,7 @@ class NPC implements Observer {
     }
 
     onNpcClick(e: egret.TouchEvent, task: Task = this.task, npcid: string = this.npcId) {
-        this.taskService.checkTaskRules(task, npcid,this.dialoguePanel);
+        this.taskService.checkStatus(task, npcid,this.dialoguePanel);
     }
 
     onChange(task: Task) {
